@@ -24,7 +24,7 @@ class EventosLinkRepository(EventosLinkRepositoryInterface):
                 db.session.rollback()
                 raise exception
             
-    def select_event(self, event_id: int, subscriber_id: int) -> EventosLink:
+    def select_event_link(self, event_id: int, subscriber_id: int) -> EventosLink:
         with DBConnectionHandler() as db:
             data = (
                 db.session

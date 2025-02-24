@@ -8,15 +8,15 @@ class SubscribersManager:
         
     def get_subscribers_by_link(self, http_request: HttpRequest) -> HttpResponse:
         link = http_request.param["link"]
-        event_id = http_request.param["evento_id"]
+        event_id = http_request.param["event_id"]
         
         subscribers = self.__subs_repo.select_subscribers_by_link(link, event_id)
         
         return self.__format_subs_by_link(subscribers)
     
     def get_event_ranking(self, http_request: HttpRequest) -> HttpResponse:
-        event_id = http_request.param["evento_id"]
-        event_ranking = self.__subscribers_repo.get_ranking(event_id)
+        event_id = http_request.param["event_id"]
+        event_ranking = self.__subs_repo.get_ranking(event_id)
         
         return self.__format_event_ranking(event_ranking)
     
@@ -35,7 +35,8 @@ class SubscribersManager:
                     "count": len(formmated_subscriber),
                     "attributes": formmated_subscriber
                 }
-            }
+            },
+            status_code=200
         ) 
         
     def __format_event_ranking(self, event_ranking: list) -> HttpResponse:
@@ -53,6 +54,7 @@ class SubscribersManager:
                     "count": len(formmated_event_ranking),
                     "ranking": formmated_event_ranking
                 }
-            }
+            },
+            status_code=200
         ) 
         
